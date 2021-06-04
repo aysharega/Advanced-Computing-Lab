@@ -1,0 +1,18 @@
+import pandas as pd
+iris = pd.read_csv("/content/heart.csv")
+x=iris[['trestbps','chol','thalach','oldpeak']]
+y=iris['target']
+
+from sklearn.svm import SVC
+Model=SVC()
+
+from sklearn.naive_bayes import GaussianNB
+Model2= GaussianNB() 
+
+ML=Model.fit(x,y)
+ML2=Model.fit(x,y)
+
+Result1 =ML.predict([[130, 240, 120, 3.7]])
+print("Result by doing SVM is {}".format(Result1))
+Result2 =ML2.predict([[130, 240, 120, 3.7]])
+print("Result by doing Naïve Bayes(NB) is {}".format(Result2))
