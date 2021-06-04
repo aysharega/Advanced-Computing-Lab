@@ -1,0 +1,47 @@
+#1.Training
+#Load data
+import numpy as np
+import pandas as pd
+train = pd.read_csv("/content/train.csv")
+test = pd.read_csv("/content/test.csv")
+
+x_train =train[['Age','Flight Distance','Inflight wifi service','Ease of Online booking','Food and drink','Seat comfort', 'Leg room service', 'Cleanliness','Departure Delay in Minutes','Arrival Delay in Minutes']]
+y_train =train['satisfaction']
+
+x_test =test[['Age','Flight Distance','Inflight wifi service','Ease of Online booking','Food and drink','Seat comfort', 'Leg room service', 'Cleanliness','Departure Delay in Minutes','Arrival Delay in Minutes']]
+y_test =test['satisfaction']
+
+x_train=x_train.fillna(x_train.mean())
+x_test = x_test.fillna(x_test.mean())
+
+
+
+#ML Model
+from sklearn.naive_bayes import GaussianNB
+NBa = GaussianNB()
+from sklearn.naive_bayes import MultinomialNB
+NBb = MultinomialNB()
+from sklearn.naive_bayes import BernoulliNB
+NBc = BernoulliNB()
+
+
+#fit the data
+ML = NBa.fit (x_train,y_train)
+ML1= NBb.fit(x_train,y_train)
+ML2= NBc.fit(x_train,y_train)
+
+#Testing
+Result1=ML.predict(x_test)
+from sklearn.metrics import accuracy_score
+score=accuracy_score(Result1, y_test)
+print("Accuracy by classifying using Gaussian is=",score*100)
+
+Result2=ML1.predict(x_test)
+from sklearn.metrics import accuracy_score
+score1=accuracy_score(Result2, y_test)
+print("Accuracy by classifying using Multinomial is=",score1*100)
+
+Result3=ML2.predict(x_test)
+from sklearn.metrics import accuracy_score
+score2=accuracy_score(Result3, y_test)
+print("Accuracy by classifying using Bernoulli is=",score2*100)
