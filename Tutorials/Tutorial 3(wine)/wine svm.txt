@@ -1,0 +1,16 @@
+import pandas as pd
+import pandas as pd
+iris = pd.read_csv("/content/winequality_red.csv")
+x=iris[['fixed acidity','residual sugar','free sulfur dioxide','density','pH','alcohol']]
+y=iris['quality']
+
+#algo
+from sklearn.svm import SVC
+Model=SVC()
+
+#fit data
+ML= Model.fit(x,y)
+
+#2.Testing
+Result= ML.predict([[7.9,1.4,11,0.998,3.51,9.4]])
+print (Result)
