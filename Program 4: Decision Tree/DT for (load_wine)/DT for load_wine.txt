@@ -1,0 +1,26 @@
+from sklearn.datasets import load_wine
+wine = load_wine()
+x= wine.data
+y= wine.target
+
+from sklearn.tree import DecisionTreeClassifier
+ML = DecisionTreeClassifier(criterion="entropy")
+ML =ML.fit(x,y)
+Result= ML.predict([[7.9,0.88,0.02,40,12,1.4,0.073,11,102,0.998,3.51,0.8,9.4]])
+print (Result)
+
+
+
+
+from sklearn.datasets import load_wine
+wine = load_wine()
+x= wine.data
+y= wine.target
+f_n=wine.feature_names
+c_n=wine.target_names
+from sklearn import tree
+import graphviz
+dot_data=tree.export_graphviz (ML,feature_names=f_n, class_names=c_n, filled=True, rounded= True, special_characters=True)                                                   
+graph=graphviz.Source(dot_data)
+graph.render("DT for wine")
+graph
