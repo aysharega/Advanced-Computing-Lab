@@ -1,0 +1,23 @@
+import pandas as pd
+sky=pd.read_csv("/content/Skyserver_SQL2_27_2018 6_51_39 PM.csv")
+x=sky[['ra','dec','u','g','r','i','z']]
+y=sky['class']
+
+from sklearn.tree import DecisionTreeClassifier
+ML= DecisionTreeClassifier()
+ML =ML.fit(x,y)
+Result= ML.predict([[184.3888,0.112,19.45,17.54,16.48,15.88,18.97]])
+print (Result)
+
+
+import pandas as pd
+sky=pd.read_csv("/content/Skyserver_SQL2_27_2018 6_51_39 PM.csv")
+x=sky[['ra','dec','u','g','r','i','z']]
+y=sky['class']
+from sklearn import tree
+import graphviz
+dot_data=tree.export_graphviz (ML,max_depth=5, filled=True, class_names=True, rounded= True,node_ids=True, special_characters=True)
+                                                     
+graph=graphviz.Source(dot_data)
+graph.render("DT for Digital sky ")
+graph
