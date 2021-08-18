@@ -1,0 +1,24 @@
+import pandas as pd
+heart = pd.read_csv("/content/heart.csv")
+x = heart[['trestbps','chol','thalach']]
+
+from sklearn.cluster import KMeans
+ML = KMeans(n_clusters=3, max_iter=10, n_init=10, random_state=20)
+ML = ML.fit(x)
+
+#Centers and labels
+centers = ML.cluster_centers_
+labels = ML.labels_
+print("Centers = ", centers)
+print("Labels = ",labels)
+
+#plot
+import matplotlib.pyplot as plt
+axis = plt.axes(projection='3d')
+xaxis = heart["trestbps"]
+plt.xlabel("trestbps")
+yaxis = heart["chol"]
+plt.ylabel("Cholestrol")
+zaxis = heart["thalach"]
+plt.title("3D- KMeans Clustering (Heart Dataset)")
+axis.scatter3D(xs=xaxis,ys=yaxis,zs=zaxis,c=labels,cmap="rainbow")

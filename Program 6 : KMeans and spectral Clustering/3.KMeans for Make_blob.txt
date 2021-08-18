@@ -1,0 +1,18 @@
+from sklearn.datasets import make_blobs
+dataset = make_blobs(n_samples = 200, n_features = 6, centers = 4, cluster_std = 2, random_state=50)
+points = dataset[0]
+
+from sklearn.cluster import KMeans
+k_means = KMeans(n_clusters=5, n_init=25)
+k_means.fit(points)
+
+#plot
+import matplotlib.pyplot as plt
+clusters = k_means.cluster_centers_
+y = k_means.fit_predict(points)
+plt.scatter(points[y == 0,0],points[y == 0,1],s =80, color = 'red')
+plt.scatter(points[y == 1,0],points[y == 1,1],s =80, color = 'blue')
+plt.scatter(points[y == 2,0],points[y == 2,1],s =80, color = 'yellow')
+plt.scatter(points[y == 3,0],points[y == 3,1],s =80, color = 'green')
+plt.scatter(points[y == 4,0],points[y == 4,1],s =80, color = 'black')
+plt.show()

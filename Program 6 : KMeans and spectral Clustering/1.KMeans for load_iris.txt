@@ -1,0 +1,19 @@
+import pandas as pd
+iris = pd.read_csv("irisexcel.csv")
+x = iris[['sepal_length','sepal_width']]
+
+from sklearn.cluster import KMeans
+ML = KMeans(n_clusters=5, max_iter=4)
+ML = ML.fit(x)
+
+# centers & Labels
+centers = ML.cluster_centers_
+labels = ML.labels_
+print (centers)
+print (labels)
+
+import matplotlib.pyplot as plt
+xaxis = iris["sepal_length"]
+yaxis = iris["sepal_width"]
+plt.scatter(x=xaxis,y=yaxis,c=labels,cmap="rainbow")
+plt.show()
