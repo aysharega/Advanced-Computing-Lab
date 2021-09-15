@@ -1,0 +1,38 @@
+#CNN on MNIST
+#1. Load and process MNIST
+from tensorflow import keras
+mnistDB = keras.datasets.mnist
+(Xtrain, Ytrain),(Xtest, Ytest)=mnistDB.load_data()
+print("X_train Size: ", Xtrain.shape)
+print("X_test Size: ", Xtest.shape)
+print("Y_train Size: ", Ytrain.shape)
+print("Y_test Size: ", Ytest.shape)
+
+import matplotlib.pyplot as plt
+plt.imshow(Xtrain[250], cmap='binary')
+
+#1b. Conversion to 1 channel
+Xtrain =Xtrain.reshape((60000,28,28,1))
+Xtest =Xtest.reshape((10000,28,28,1))
+print("New X_train Size: ", Xtrain.shape)
+print("New X_test Size: ", Xtest.shape)
+#1c. Normalize
+Xtrain =Xtrain.astype('float32')/255
+Xtest =Xtest.astype('float32')/255
+#2. Create CNN layers
+from keras.models import Sequential
+from keras.layers import Dense, Conv2D, Flatten
+cnn = keras.models.Sequential()
+cnn.add(keras.layers.Conv2D(32,(3,3), activation = "relu", input_shape=Xtrain.shape[1:]))
+cnn.add(keras.layers.Conv2D(64,(3,3),activation = "relu"))
+cnn.add(keras.layers.MaxPool2D(2,2))
+cnn.add(keras.layers.Dropout(0.25))
+cnn.add(keras.layers.Flatten())
+cnn.add(keras.layers.Dense(128, activation = "relu"))
+cnn.add(keras.layers.Dropout(0.25))
+cnn.add(keras.layers.Dense(10, activation = "softmax"))
+cnn.summary()
+#3. Compile and test
+cnn.compile(loss="sparse_categorical_crossentropy", 
+            optimizer="adam", metrics="accuracy")
+cnn.fit(Xtrain,Ytrain, epochs=2, batch_size=16)
