@@ -1,0 +1,15 @@
+#input
+from sklearn.datasets import load_iris
+iris = load_iris()
+x= iris.data[:, 0:2]
+#model
+from sklearn.cluster import DBSCAN
+dbscan= DBSCAN()
+dbscan = dbscan.fit(x)
+# Labels
+labels =dbscan.labels_
+print (labels)
+#plot
+import matplotlib.pyplot as plt
+plt.scatter(x[:,0],x[:,1],c=labels,cmap="rainbow")
+plt.show()
