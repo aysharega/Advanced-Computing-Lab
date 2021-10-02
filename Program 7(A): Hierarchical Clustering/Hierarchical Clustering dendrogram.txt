@@ -1,0 +1,22 @@
+import numpy as np
+from scipy.cluster import hierarchy
+ytdist= np.array([ 662. , 877. , 255. , 412. , 996. , 295. ,
+468. , 268. , 400. , 754. , 564. , 138. , 219. , 869. , 669. ])
+Z= hierarchy.linkage(ytdist, "single")
+output= hierarchy.dendrogram(Z)
+
+
+import numpy as np
+from scipy.cluster import hierarchy
+ytdist= np.array([ 662. , 877. , 255. , 412. , 996. , 295. ,
+468. , 268. , 400. , 754. , 564. , 138. , 219. , 869. , 669. ])
+Z= hierarchy.linkage(ytdist, "complete")
+output= hierarchy.dendrogram(Z)
+
+
+import numpy as np
+from scipy.cluster import hierarchy
+ytdist= np.array([ 662. , 877. , 255. , 412. , 996. , 295. ,
+468. , 268. , 400. , 754. , 564. , 138. , 219. , 869. , 669. ])
+Z= hierarchy.linkage(ytdist, "average")
+output= hierarchy.dendrogram(Z)
