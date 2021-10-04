@@ -1,0 +1,29 @@
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_boston
+import tensorflow as tf
+from tensorflow import keras
+
+bostonData = load_boston()
+
+X = bostonData.data
+y = bostonData.target
+
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.2,random_state=42)
+
+model_MLP = keras.models.Sequential()
+model_MLP.add(keras.layers.Dense(units=5, activation='relu',input_shape=X_train.shape[1:]))
+model_MLP.add(keras.layers.Dense(3, activation='relu'))
+model_MLP.add(keras.layers.Dense(units=1, activation='linear'))
+
+model_MLP.summary()
+
+model_MLP.compile(loss='mean_squared_error', optimizer='adam', metrics=['mean_absolute_error'])
+
+model_MLP.fit(x=X_train, y=y_train, validation_split=0.1,epochs=10, batch_size=16)
+
+expected_y=y_test
+predicted_y=model_MLP.predict(X_test)
+print("R2 score is found to be:",metrics.r2_score(expected_y, predicted_y))
